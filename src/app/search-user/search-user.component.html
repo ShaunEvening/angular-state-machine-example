@@ -1,0 +1,56 @@
+<div class="h-100 flex flex-column">
+  <div class="bg-gradient pv4 tc">
+    <h2 class="white f2 mt0">Search Github User</h2>
+    <form class="w-50 form-center" [ngrxFormState]="userSearchForm$ | async" (submit)="onSubmit()">
+      <app-text-input>
+        <input
+          #input
+          type="type"
+          placeholder="Username"
+          [ngrxFormControlState]="(userSearchForm$ | async).controls.username"
+        />
+      </app-text-input>
+      <app-button>
+        <button
+          class="mt3"
+          #button
+          type="submit"
+          [disabled]="
+            (userSearchLoadingStatus$ | async).isLoading ||
+            (userSearchForm$ | async).isInvalid ||
+            (userSearchForm$ | async).isPristine
+          "
+        >
+          {{ (userSearchLoadingStatus$ | async).isLoading ? 'searching' : 'search' }}
+        </button>
+      </app-button>
+    </form>
+  </div>
+  <div class="pv4 ph6 flex-auto">
+    <h1 class="f1 lh-title dark-gray mb2">Users</h1>
+    <ul *ngIf="(userResults$ | async).length" class="list pl0 flex flex-wrap">
+      <li
+        *ngFor="let user of (userResults$ | async)"
+        class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10"
+      >
+        <div class="tc">
+          <img
+            [src]="user.imageUrl"
+            class="br-100 h4 w4 dib ba b--black-05 pa2"
+            title="Photo of a kitty staring at you"
+          />
+          <h1 class="f3 mb2">{{ user.username }}</h1>
+          <app-button>
+            <button #button (click)="navigateToUserPage(user.username)">View Profile</button>
+          </app-button>
+        </div>
+      </li>
+    </ul>
+    <h2
+      *ngIf="!(userResults$ | async).length && !(userSearchLoadingStatus$ | async).isLoading"
+      class="f5 fw4 gray mv2"
+    >
+      No users found
+    </h2>
+  </div>
+</div>

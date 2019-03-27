@@ -1,0 +1,22 @@
+<h1 class="f1 lh-title dark-gray mb2">Repositories</h1>
+<app-text-input>
+  <input
+    #input
+    placeholder="filter repositories"
+    [ngrxFormControlState]="(filterForm$ | async).controls.filterString"
+  />
+</app-text-input>
+<ul *ngIf="(repositories$ | async).length" class="list pl0">
+  <li *ngFor="let repo of (repositories$ | async)" class="ph4 pv2 hover-item">
+    <h1 class="f3 mb2">{{ repo.name }}</h1>
+    <h2 class="f5 fw4 gray mt0">
+      {{ repo.description ? repo.description : 'No Description found' }}
+    </h2>
+  </li>
+</ul>
+<h2
+  *ngIf="!(repositories$ | async).length && !(repositoryLoadingState$ | async).isLoading"
+  class="f5 fw4 gray mv2"
+>
+  No repositories found
+</h2>

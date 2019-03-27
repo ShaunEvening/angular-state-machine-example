@@ -1,0 +1,17 @@
+<div class="h-100 flex flex-column">
+  <div class="bg-gradient ph4 pv3 tc">
+    <img [src]="(userInformation$ | async).imageUrl.length ? (userInformation$ | async).imageUrl : DEFAULT_IMAGE_URL" class=" shadow br-100 h4 w4 dib shadow" alt="github profile picture" />
+    <h1 class="f2 mv2 white">{{ (userInformation$ | async).username }}</h1>
+    <h2 class="f4 fw4 white mt0 mb2">{{(userInformation$ | async).location}}</h2>
+  </div>
+  <nav class="bg-dark-gray pv2 w-100">
+      <ul class="list pl0 flex flex-row justify-center items-center">
+        <li *ngFor="let tab of TABS" class="white f4 mv0 ttu ph4">
+          {{tab.name}}
+        </li>
+      </ul>
+    </nav>
+  <div class="pv4 ph6 flex-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>

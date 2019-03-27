@@ -1,0 +1,10 @@
+:host {
+  .hover-item {
+    transition: all 200ms ease-in-out;
+    &:hover {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: -1px 9px 13px -7px rgba(0, 0, 0, 0.3), 0px 7px 16px 3px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
